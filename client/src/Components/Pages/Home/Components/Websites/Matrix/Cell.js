@@ -1,7 +1,7 @@
 import React from "react";
 
-function Cell(props) {
-  const imgur = `https://i.imgur.com/${props.item.img}.png`;
+const Cell = (props) => {
+  const imgur = `https://i.imgur.com/${props.item.imgurid}.png`;
   return (
     <div className="card">
       <div className="card-image logo-card">
@@ -35,6 +35,6 @@ function Cell(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Cell;

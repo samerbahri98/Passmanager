@@ -1,6 +1,28 @@
 import React, { Component } from "react";
 
 class SettingsBar extends Component {
+
+  state = {
+    listBtn : "button is-small is-primary",
+    matrixBtn : "button is-small"
+  }
+  setList = (e) => {
+    this.props.toggleView("list")
+    this.setState({
+    listBtn : "button is-small is-primary",
+    matrixBtn : "button is-small"
+    })
+  }
+
+  setMatrix = (e) => {
+    this.props.toggleView("matrix")
+    this.setState({
+      listBtn : "button is-small",
+      matrixBtn : "button is-small is-primary"
+      })
+  }
+
+
   render() {
     return (
       <div className="panel-block">
@@ -23,12 +45,12 @@ class SettingsBar extends Component {
           </span>
         </p>
         <span className="navbar-item">
-          <div className="button is-primary is-small">
+          <div className={this.state.listBtn}  onClick={this.setList}>
             <span className="icon">
               <i className="fa fa-list"></i>
             </span>
           </div>
-          <div className="button is-small">
+          <div className={this.state.matrixBtn} onClick={this.setMatrix}>
             <span className="icon">
               <i className="fa fa-th"></i>
             </span>

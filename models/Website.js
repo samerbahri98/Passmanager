@@ -28,6 +28,9 @@ const WebsiteSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    imgurid:{
+        type: String,
     }
 
 })
