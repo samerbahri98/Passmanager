@@ -43,6 +43,7 @@ router.post(
       Email,
       Phone,
       Password,
+      Notes,
       imgurid
     } = req.body;
 
@@ -55,6 +56,7 @@ router.post(
             Email,
             Phone,
             Password,
+            Notes,
             imgurid})
         const webiste = await newWebsite.save()
         res.json(Website)

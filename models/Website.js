@@ -25,6 +25,9 @@ const WebsiteSchema = mongoose.Schema({
     Password: {
         type: String,
     },
+    Notes: {
+        type: String,
+    },
     date: {
         type: Date,
         default: Date.now

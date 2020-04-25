@@ -2,10 +2,14 @@ import React, { Component } from "react";
 
 class SettingsBar extends Component {
 
+
   state = {
     listBtn : "button is-small is-primary",
     matrixBtn : "button is-small"
   }
+
+  add = () => this.props.add()
+
   setList = (e) => {
     this.props.toggleView("list")
     this.setState({
@@ -26,7 +30,7 @@ class SettingsBar extends Component {
   render() {
     return (
       <div className="panel-block">
-        <div className="button is-primary is-small">Add item</div>
+        <div className="button is-primary is-small" onClick={this.add}>Add item</div>
         <p className="control navbar-item">
           <span>
             <div className="navbar-item has-dropdown is-hoverable">
@@ -35,8 +39,6 @@ class SettingsBar extends Component {
                   <option>Sort by:</option>
                   <option>Name (A-Z)</option>
                   <option>Name (Z-A)</option>
-                  <option>E-mail (A-Z)</option>
-                  <option>E-mail (Z-A)</option>
                   <option>Date (Oldest)</option>
                   <option>Date (Newest)</option>
                 </select>
