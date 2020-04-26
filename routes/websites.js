@@ -44,7 +44,7 @@ router.post(
       Phone,
       Password,
       Notes,
-      imgurid
+      logoUrl
     } = req.body;
 
     try {
@@ -57,7 +57,7 @@ router.post(
             Phone,
             Password,
             Notes,
-            imgurid})
+            logoUrl})
         const webiste = await newWebsite.save()
         res.json(Website)
     } catch (err) {

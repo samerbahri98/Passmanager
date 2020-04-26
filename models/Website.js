@@ -32,7 +32,7 @@ const WebsiteSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    imgurid:{
+    logoUrl:{
         type: String,
     }
 

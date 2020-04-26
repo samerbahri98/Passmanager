@@ -14,7 +14,7 @@ class Cell extends Component {
         <div className="card-image logo-card">
           <figure className="image is-64x64 is-centered logo-container">
             <img
-              src={`https://i.imgur.com/${this.props.item.imgurid}.png`}
+              src={this.props.item.logoUrl}
               className="is-centered"
               alt="Image"
             />

@@ -1,0 +1,5 @@
+Client id 0eddb24a01cdcc1
+Client Secret 85388e757eb2fb0a5b31ac91227302a7ff39ff3b
+
+Access token 982dc363c551f8c7507cca2b2cef5a3d2c0ade72
+Refresh token 6a249ad0ba186bc438e902f1e510b2bd96d1749b
