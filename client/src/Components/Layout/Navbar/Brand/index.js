@@ -6,16 +6,16 @@ const Brand = () => {
     <div className="navbar-brand">
       <div className="navbar-brand">
         <Link to="/">
-          <a className="navbar-item">
+          <div className="navbar-item">
             <span className="icon">
               <i className="fa fa-lock title"></i>
             </span>
             <h1 className="title">VAULT</h1>
-          </a>
+          </div>
         </Link>
       </div>
 
-      <a
+      <div
         role="button"
         className="navbar-burger burger"
         aria-label="menu"
@@ -25,7 +25,7 @@ const Brand = () => {
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
-      </a>
+      </div>
     </div>
   );
 };

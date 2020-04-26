@@ -7,12 +7,13 @@ import Home from "./Components/Pages/Home";
 import About from "./Components/Pages/About";
 import Help from "./Components/Pages/Help";
 
-// import { Provider } from "react-redux";
+import { Provider } from "react-redux";
+import store from "./store"
 
 const App = () => {
   const username = "Samer Bahri";
   return (
-    // <Provider>
+    <Provider store ={store}>
       <Router>
         <div className="App">
           <Navbar username={username} />
@@ -26,7 +27,7 @@ const App = () => {
           <Footer />
         </div>
       </Router>
-    // </Provider>
+    </Provider>
   );
 };
 

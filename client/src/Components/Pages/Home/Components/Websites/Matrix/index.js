@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from "react";
 import Cell from "./Cell";
+import {connect} from 'react-redux'
+import { fetchWebsites } from "../../../../../../Actions/websiteActions";
+
 class Matrix extends Component {
   state = {
     notification: false,
@@ -11,9 +14,16 @@ class Matrix extends Component {
 
   notify = (text) => this.setState({ notification: true, text: text });
 
+  refresh = () =>    this.props.fetchWebsites()
+
+  componentDidMount(){
+
+  }
+
   render() {
     return (
       <Fragment>
+        <button onClick={this.refresh} />
         {this.state.notification ? (
           <div className="notification is-primary is-light">
             <button className="delete" onClick={this.CloseNotif}></button>
@@ -41,4 +51,10 @@ class Matrix extends Component {
   }
 }
 
-export default Matrix;
+const mapStateToProps = async state => ({
+  list: await state.websites.websites
+})
+
+export default connect (mapStateToProps,{fetchWebsites})(Matrix);
+
+

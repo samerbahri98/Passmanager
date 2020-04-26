@@ -26,23 +26,8 @@ class Website extends Component {
   delete = () => this.setState({delete:true})
   cancel = () => this.setState({ add: false, modify: false, delete: false });
 
-  fetchData = () => {
-    fetch("http://localhost:5000/api/websites/", {
-      method: "GET",
-      headers: {
-        "x-auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhMjY0MjFkZDQ4OWUxOTcyM2MwNDZjIn0sImlhdCI6MTU4NzcwNDUzOCwiZXhwIjoxNTg4MDY0NTM4fQ.AIz5t9mExp1z735KionvcwdFs-CnrSES98A0s52fBI0",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((data) => data.json())
-      .then((res) => {
-        this.setState({ list: res.websites });
-      });
-  };
-  componentDidMount() {
-    this.fetchData();
-  }
+
+  
 
   toggleView = (value) => {
     this.setState({ display: value });
@@ -61,7 +46,7 @@ class Website extends Component {
           {this.state.display === "list" ? (
             <Table list={this.state.list} modify={this.modify} delete={this.delete}/>
           ) : (
-            <Matrix list={this.state.list} modify={this.modify} delete={this.delete} />
+            <Matrix modify={this.modify} delete={this.delete} />
           )}
         </nav>
       </div>
