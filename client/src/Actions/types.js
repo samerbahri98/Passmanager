@@ -1,0 +1,2 @@
+export const FETCH_WEBSITES = "FETCH_WEBSITES"
+export const ADD_WEBSITE = "ADD_WEBSITE"
