@@ -83,8 +83,8 @@ class PasswordInput extends Component {
                   onChange={this.changeInput}
                 />
               </p>
-              <p class="control">
-                <button class="button is-info" onClick={this.generate}>
+              <p className="control">
+                <button className="button is-info" onClick={this.generate}>
                   Generate
                 </button>
               </p>

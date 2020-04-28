@@ -4,7 +4,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 class Cell extends Component {
   copyPassword = () =>
     this.props.notify(
-      `${this.props.item.WebsiteName} Password is copied to clipboard`
+      `${this.props.elem.WebsiteName} Password is copied to clipboard`
     );
   modify = () => this.props.modify();
   delete = () => this.props.delete();
@@ -14,7 +14,7 @@ class Cell extends Component {
         <div className="card-image logo-card">
           <figure className="image is-64x64 is-centered logo-container">
             <img
-              src={this.props.item.logoUrl}
+              src={this.props.elem.logoUrl}
               className="is-centered"
               alt="Image"
             />
@@ -24,8 +24,8 @@ class Cell extends Component {
           <div className="media">
             <div className="media-content">
               <div className="options">
-                <span className="panel-icon" onClick={this.copyPassword}>
-                  <CopyToClipboard text={this.props.item.Password}>
+                <span className="panel-icon">
+                  <CopyToClipboard text={this.props.elem.Password} onCopy={this.copyPassword}>
                     <a>
                       <i className="fa fa-copy"></i>
                     </a>
@@ -42,13 +42,13 @@ class Cell extends Component {
                   </a>
                 </span>
                 <span className="panel-icon">
-                  <a href={this.props.item.WebsiteUrl} target="_blank">
+                  <a href={this.props.elem.WebsiteUrl} target="_blank">
                     <i className="fa fa-globe"></i>
                   </a>
                 </span>
               </div>
-              <p className="title is-4">{this.props.item.WebsiteName}</p>
-              <p className="subtitle is-6">{this.props.item.Username}</p>
+              <p className="title is-4">{this.props.elem.WebsiteName}</p>
+              <p className="subtitle is-6">{this.props.elem.Username}</p>
             </div>
           </div>
         </div>

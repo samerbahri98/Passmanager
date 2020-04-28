@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Thead from "./Thead";
 import Row from "./Row";
+import PropTypes from "prop-types"
 import { connect } from "react-redux";
 import { fetchWebsites } from "../../../../../../Actions/websiteActions";
 
@@ -19,11 +20,17 @@ class Table extends Component {
     this.refresh()
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps.website)
+    if(nextProps.website) this.props.fetchWebsites();
+  }
+
   refresh = () => {
     this.props.fetchWebsites();
   };
 
   render() {
+
     return (
       <Fragment>
         {this.state.notification ? (
@@ -38,7 +45,7 @@ class Table extends Component {
           <table className="table is-hoverable is-fullwidth">
             <Thead />
             <tbody>
-              {(typeof this.props.websites.websites === "undefined")?<Fragment />:this.props.websites.websites.map((elem, index) => (
+              {(this.props.list)?this.props.list.map((elem, index) => (
                 <Row
                   key={index}
                   item={elem}
@@ -46,7 +53,7 @@ class Table extends Component {
                   modify={this.modify}
                   delete={this.delete}
                 />
-              ))}
+              )):<Fragment />}
             </tbody>
           </table>
         </div>
@@ -55,8 +62,13 @@ class Table extends Component {
   }
 }
 
+Table.propTypes = {
+  fetchWebsites : PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state) => ({
-  websites: state.websites.websites,
+  list: state.websites.websitesList,
+  added: state.website
 });
 
 export default connect(mapStateToProps, { fetchWebsites })(Table);

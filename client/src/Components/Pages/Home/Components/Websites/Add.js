@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import PasswordInput from "./PasswordInput";
 import Upload from "./Upload";
 import axios from "axios";
+import PropTypes from "prop-types"
+import { connect } from "react-redux";
+import { fetchWebsites, addWebsite } from "../../../../../Actions/websiteActions";
 
 class Add extends Component {
   state = {
@@ -57,18 +60,10 @@ class Add extends Component {
       logoUrl: this.state.logoUrl,
     };
 
-    const feedback = await axios({
-      method:"post",
-      url:"http://localhost:5000/api/websites",
-            headers: {
-        "x-auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhMjY0MjFkZDQ4OWUxOTcyM2MwNDZjIn0sImlhdCI6MTU4NzcwNDUzOCwiZXhwIjoxNTg4MDY0NTM4fQ.AIz5t9mExp1z735KionvcwdFs-CnrSES98A0s52fBI0",
-        "Content-Type": "application/json",
-      },
-      data:JSON.stringify(postData)
-    })
-    console.log(feedback)
-    this.cancel();
+    await this.props.addWebsite(postData)
+    await this.props.fetchWebsites()
+
+    this.cancel()
   };
 
   cancel = () => this.props.cancel();
@@ -184,4 +179,9 @@ class Add extends Component {
   }
 }
 
-export default Add;
+Add.propTypes = {
+  addWebsite : PropTypes.func.isRequired,
+  fetchWebsites: PropTypes.func.isRequired,
+}
+
+export default connect(null,{fetchWebsites,addWebsite})(Add);

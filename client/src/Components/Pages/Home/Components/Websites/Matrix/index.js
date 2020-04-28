@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Cell from "./Cell";
+import PropTypes from "prop-types"
 import {connect} from 'react-redux'
 import { fetchWebsites } from "../../../../../../Actions/websiteActions";
 
@@ -11,6 +12,7 @@ class Matrix extends Component {
   modify = () => this.props.modify();
   delete = () => this.props.delete();
   CloseNotif = () => this.setState({ notification: false, text: "" });
+  notify = (text) => this.setState({ notification: true, text: text });
 
   componentDidMount() {
     this.refresh()
@@ -34,10 +36,10 @@ class Matrix extends Component {
 
         <div className="panel-block">
           <div className="matrix container is-hoverable">
-          {(typeof this.props.websites.websites === "undefined")?<Fragment />:this.props.websites.websites.map((elem, index) => (
+          {(typeof this.props.list === "undefined")?<Fragment />:this.props.list.map((elem, index) => (
               <Cell
                 key={index}
-                item={elem}
+                elem={elem}
                 notify={this.notify}
                 modify={this.modify}
                 delete={this.delete}
@@ -50,9 +52,12 @@ class Matrix extends Component {
   }
 }
 
+Matrix.propTypes = {
+  fetchWebsites : PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state) => ({
-  websites: state.websites.websites,
+  list: state.websites.websitesList,
 });
 
 export default connect(mapStateToProps, { fetchWebsites })(Matrix);

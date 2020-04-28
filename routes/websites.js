@@ -58,8 +58,9 @@ router.post(
             Password,
             Notes,
             logoUrl})
-        const webiste = await newWebsite.save()
-        res.json(Website)
+        const website = await newWebsite.save()
+        
+        res.json({website})
     } catch (err) {
         
     console.error(err.message);
