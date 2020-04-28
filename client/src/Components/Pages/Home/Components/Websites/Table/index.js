@@ -16,17 +16,16 @@ class Table extends Component {
   notify = (text) => this.setState({ notification: true, text: text });
 
   componentDidMount() {
+    this.refresh()
   }
 
   refresh = () => {
     this.props.fetchWebsites();
-    console.log(this.props.websites.websites );
   };
 
   render() {
     return (
       <Fragment>
-        <button onClick={this.refresh}>refresh</button>
         {this.state.notification ? (
           <div className="notification is-primary is-light">
             <button className="delete" onClick={this.CloseNotif}></button>
@@ -39,7 +38,7 @@ class Table extends Component {
           <table className="table is-hoverable is-fullwidth">
             <Thead />
             <tbody>
-              {/*this.props.websites.websites.map((elem, index) => (
+              {(typeof this.props.websites.websites === "undefined")?<Fragment />:this.props.websites.websites.map((elem, index) => (
                 <Row
                   key={index}
                   item={elem}
@@ -47,7 +46,7 @@ class Table extends Component {
                   modify={this.modify}
                   delete={this.delete}
                 />
-              ))*/}
+              ))}
             </tbody>
           </table>
         </div>

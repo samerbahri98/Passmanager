@@ -12,18 +12,17 @@ class Matrix extends Component {
   delete = () => this.props.delete();
   CloseNotif = () => this.setState({ notification: false, text: "" });
 
-  notify = (text) => this.setState({ notification: true, text: text });
-
-  refresh = () =>    this.props.fetchWebsites()
-
-  componentDidMount(){
-
+  componentDidMount() {
+    this.refresh()
   }
+
+  refresh = () => {
+    this.props.fetchWebsites();
+  };
 
   render() {
     return (
       <Fragment>
-        <button onClick={this.refresh} />
         {this.state.notification ? (
           <div className="notification is-primary is-light">
             <button className="delete" onClick={this.CloseNotif}></button>
@@ -35,9 +34,9 @@ class Matrix extends Component {
 
         <div className="panel-block">
           <div className="matrix container is-hoverable">
-            {this.props.list.map((elem) => (
+          {(typeof this.props.websites.websites === "undefined")?<Fragment />:this.props.websites.websites.map((elem, index) => (
               <Cell
-                key={elem._id}
+                key={index}
                 item={elem}
                 notify={this.notify}
                 modify={this.modify}
@@ -51,10 +50,11 @@ class Matrix extends Component {
   }
 }
 
-const mapStateToProps = async state => ({
-  list: await state.websites.websites
-})
 
-export default connect (mapStateToProps,{fetchWebsites})(Matrix);
+const mapStateToProps = (state) => ({
+  websites: state.websites.websites,
+});
+
+export default connect(mapStateToProps, { fetchWebsites })(Matrix);
 
 
