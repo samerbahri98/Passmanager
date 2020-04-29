@@ -14,40 +14,44 @@ class Upload extends Component {
 
   toggleEnable = () => {
     this.setState({ enabled: !this.state.enabled });
-    this.props.toggleEnable();
-  };
-  uploadTab = () => {
-    if (!this.statae.uploadTab) {
-      this.setState({
-        uploadTab: true,
-        uploadTabClassName: "is-active",
-        UrlTabClassName: "",
-      });
-      this.props.toggleIsUrl();
-    }
-  };
-  urlTab = () => {
-    if (this.state.uploadTab) {
-      this.setState({
-        uploadTab: false,
-        uploadTabClassName: "",
-        UrlTabClassName: "is-active",
-      });
-      this.props.toggleIsUrl();
-    }
+    this.props.actions.toggle();
   };
 
-  loadFile = (e) => {
-    this.setState({
-      file: e.target.files[0],
-      filename: e.target.files[0].name,
-    });
-    this.props.loadLogo(e.target.files[0]);
+  tabs = {
+    upload: () => {
+      if (!this.statae.uploadTab) {
+        this.setState({
+          uploadTab: true,
+          uploadTabClassName: "is-active",
+          UrlTabClassName: "",
+        });
+        this.props.actions.toggleIsUrl();
+      }
+    },
+    url: () => {
+      if (this.state.uploadTab) {
+        this.setState({
+          uploadTab: false,
+          uploadTabClassName: "",
+          UrlTabClassName: "is-active",
+        });
+        this.props.actions.toggleIsUrl();
+      }
+    },
   };
 
-  loadUrl = (e) => {
-    this.setState({ url: e.target.value });
-    this.props.loadLogoUrl(e.target.value);
+  load = {
+    file: (e) => {
+      this.setState({
+        file: e.target.files[0],
+        filename: e.target.files[0].name,
+      });
+      this.props.actions.loadFile(e.target.files[0]);
+    },
+    url: (e) => {
+      this.setState({ url: e.target.value });
+      this.props.actions.loadUrl(e.target.value);
+    },
   };
   render() {
     return (
@@ -68,13 +72,13 @@ class Upload extends Component {
                 <ul>
                   <li
                     className={this.state.uploadTabClassName}
-                    onClick={this.uploadTab}
+                    onClick={this.tabs.upload}
                   >
                     <a>Upload</a>
                   </li>
                   <li
                     className={this.state.UrlTabClassName}
-                    onClick={this.urlTab}
+                    onClick={this.tabs.url}
                   >
                     <a>URL</a>
                   </li>
@@ -88,7 +92,7 @@ class Upload extends Component {
                         className="file-input"
                         type="file"
                         name="resume"
-                        onChange={this.loadFile}
+                        onChange={this.load.file}
                       />
                       <span className="file-cta">
                         <span className="file-icon">
@@ -107,7 +111,7 @@ class Upload extends Component {
                     type="text"
                     placeholder="acme.com/logo.ong"
                     value={this.state.url}
-                    onChange={this.loadUrl}
+                    onChange={this.load.url}
                   />
                 </p>
               )}

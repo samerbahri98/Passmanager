@@ -13,7 +13,6 @@ class PasswordInput extends Component {
 
   changeInput = (e) => {
     this.setState({ password: e.target.value });
-
     this.props.changeInput(this.state.password);
   };
 
@@ -42,28 +41,27 @@ class PasswordInput extends Component {
     this.props.changeInput(this.state.password);
   };
 
-  toggleLowcases = async () => {
-    let randomToggle = !this.state.lowcases;
-    await this.setState({ lowcases: randomToggle });
-    this.generate();
-  };
-
-  toggleUpcases = async () => {
-    let randomToggle = !this.state.upcases;
-    await this.setState({ upcases: randomToggle });
-    this.generate();
-  };
-
-  toggleNumbers = async () => {
-    let randomToggle = !this.state.numbers;
-    await this.setState({ numbers: randomToggle });
-    this.generate();
-  };
-
-  toggleSpecials = async () => {
-    let randomToggle = !this.state.specials;
-    await this.setState({ specials: randomToggle });
-    this.generate();
+  toggle = {
+    lowcases: async () => {
+      let randomToggle = !this.state.lowcases;
+      await this.setState({ lowcases: randomToggle });
+      this.generate();
+    },
+    upcases: async () => {
+      let randomToggle = !this.state.upcases;
+      await this.setState({ upcases: randomToggle });
+      this.generate();
+    },
+    numbers: async () => {
+      let randomToggle = !this.state.numbers;
+      await this.setState({ numbers: randomToggle });
+      this.generate();
+    },
+    specials: async () => {
+      let randomToggle = !this.state.specials;
+      await this.setState({ specials: randomToggle });
+      this.generate();
+    },
   };
   render() {
     return (
@@ -123,7 +121,7 @@ class PasswordInput extends Component {
             <div className="field">
               <p className="control">
                 <label className="checkbox">
-                  <input type="checkbox" onChange={this.toggleUpcases} />
+                  <input type="checkbox" onChange={this.toggle.upcases} />
                   A-Z
                 </label>
               </p>
@@ -131,7 +129,7 @@ class PasswordInput extends Component {
             <div className="field">
               <p className="control">
                 <label className="checkbox">
-                  <input type="checkbox" onChange={this.toggleLowcases} />
+                  <input type="checkbox" onChange={this.toggle.lowcases} />
                   a-z
                 </label>
               </p>
@@ -140,7 +138,7 @@ class PasswordInput extends Component {
             <div className="field">
               <p className="control">
                 <label className="checkbox">
-                  <input type="checkbox" onChange={this.toggleNumbers} />
+                  <input type="checkbox" onChange={this.toggle.numbers} />
                   0-9
                 </label>
               </p>
@@ -149,7 +147,7 @@ class PasswordInput extends Component {
             <div className="field">
               <p className="control">
                 <label className="checkbox">
-                  <input type="checkbox" onChange={this.toggleSpecials} />
+                  <input type="checkbox" onChange={this.toggle.specials} />
                   {`!@#$%^&*_+~>?<`}
                 </label>
               </p>

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Cell from "./Cell";
-import PropTypes from "prop-types"
-import {connect} from 'react-redux'
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { fetchWebsites } from "../../../../../../Actions/websiteActions";
 
 class Matrix extends Component {
@@ -15,12 +15,8 @@ class Matrix extends Component {
   notify = (text) => this.setState({ notification: true, text: text });
 
   componentDidMount() {
-    this.refresh()
-  }
-
-  refresh = () => {
     this.props.fetchWebsites();
-  };
+  }
 
   render() {
     return (
@@ -36,15 +32,19 @@ class Matrix extends Component {
 
         <div className="panel-block">
           <div className="matrix container is-hoverable">
-          {(typeof this.props.list === "undefined")?<Fragment />:this.props.list.map((elem, index) => (
-              <Cell
-                key={index}
-                elem={elem}
-                notify={this.notify}
-                modify={this.modify}
-                delete={this.delete}
-              />
-            ))}
+            {typeof this.props.list === "undefined" ? (
+              <Fragment />
+            ) : (
+              this.props.list.map((elem, index) => (
+                <Cell
+                  key={index}
+                  elem={elem}
+                  notify={this.notify}
+                  modify={this.modify}
+                  delete={this.delete}
+                />
+              ))
+            )}
           </div>
         </div>
       </Fragment>
@@ -53,13 +53,11 @@ class Matrix extends Component {
 }
 
 Matrix.propTypes = {
-  fetchWebsites : PropTypes.func.isRequired
-}
+  fetchWebsites: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   list: state.websites.websitesList,
 });
 
 export default connect(mapStateToProps, { fetchWebsites })(Matrix);
-
-

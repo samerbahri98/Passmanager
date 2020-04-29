@@ -14,10 +14,7 @@ class Row extends Component {
       <tr>
         <th>
           <div className="logo">
-            <img
-              src={this.props.item.logoUrl}
-              alt=""
-            />
+            <img src={this.props.item.logoUrl} alt="" />
           </div>
         </th>
         <td> {this.props.item.WebsiteName}</td>

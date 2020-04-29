@@ -25,7 +25,10 @@ class Cell extends Component {
             <div className="media-content">
               <div className="options">
                 <span className="panel-icon">
-                  <CopyToClipboard text={this.props.elem.Password} onCopy={this.copyPassword}>
+                  <CopyToClipboard
+                    text={this.props.elem.Password}
+                    onCopy={this.copyPassword}
+                  >
                     <a>
                       <i className="fa fa-copy"></i>
                     </a>

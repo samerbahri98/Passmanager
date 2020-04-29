@@ -17,17 +17,13 @@ class Table extends Component {
   notify = (text) => this.setState({ notification: true, text: text });
 
   componentDidMount() {
-    this.refresh()
+    this.props.fetchWebsites();
   }
 
   componentWillReceiveProps(nextProps){
     console.log(nextProps.website)
     if(nextProps.website) this.props.fetchWebsites();
   }
-
-  refresh = () => {
-    this.props.fetchWebsites();
-  };
 
   render() {
 

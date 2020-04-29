@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import PasswordInput from "./PasswordInput";
 import Upload from "./Upload";
 import axios from "axios";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchWebsites, addWebsite } from "../../../../../Actions/websiteActions";
+import {
+  fetchWebsites,
+  addWebsite,
+} from "../../../../../Actions/websiteActions";
 
 class Add extends Component {
   state = {
@@ -19,20 +22,24 @@ class Add extends Component {
     logoFile: null,
     logoUrl: "https://i.imgur.com/ocmhMXA.png",
   };
-  //inputs
-  changeUrl = (e) => this.setState({ websiteUrl: e.target.value });
-  changeName = (e) => this.setState({ websiteName: e.target.value });
-  changeUsername = (e) => this.setState({ Username: e.target.value });
-  changeEmail = (e) => this.setState({ Email: e.target.value });
-  changeNotes = (e) => this.setState({ Notes: e.target.value });
-  changePassword = (e) => this.setState({ Password: e });
 
-  //logo
-  toggleEnable = () => this.setState({ logoisthere: !this.state.logoisthere });
-  toggleIsUrl = () => this.setState({ logoisurl: !this.state.logoisurl });
+  //inputs actions
+  change = {
+    Url: (e) => this.setState({ websiteUrl: e.target.value }),
+    Name: (e) => this.setState({ websiteName: e.target.value }),
+    Username: (e) => this.setState({ Username: e.target.value }),
+    Email: (e) => this.setState({ Email: e.target.value }),
+    Notes: (e) => this.setState({ Notes: e.target.value }),
+    Password: (e) => this.setState({ Password: e }),
+  };
 
-  loadLogo = (file) => this.setState({ logoFile: file });
-  loadLogoUrl = (url) => this.setState({ logoUrl: url });
+  //logo actions
+  logo = {
+    toggle: () => this.setState({ logoisthere: !this.state.logoisthere }),
+    isUrl: () => this.setState({ logoisurl: !this.state.logoisurl }),
+    loadFile: (file) => this.setState({ logoFile: file }),
+    loadUrl: (url) => this.setState({ logoUrl: url }),
+  };
 
   upload = async () => {
     const formData = new FormData();
@@ -47,6 +54,7 @@ class Add extends Component {
     });
     this.setState({ logoUrl: feedback.data.data.link });
   };
+
   //submittion
   submit = async () => {
     if (this.state.logoisthere && !this.state.logoisurl) await this.upload();
@@ -60,10 +68,10 @@ class Add extends Component {
       logoUrl: this.state.logoUrl,
     };
 
-    await this.props.addWebsite(postData)
-    await this.props.fetchWebsites()
+    await this.props.addWebsite(postData);
+    await this.props.fetchWebsites();
 
-    this.cancel()
+    this.cancel();
   };
 
   cancel = () => this.props.cancel();
@@ -94,7 +102,7 @@ class Add extends Component {
                   type="text"
                   placeholder="www.acme.com"
                   value={this.state.websiteUrl}
-                  onChange={this.changeUrl}
+                  onChange={this.change.Url}
                 />
               </p>
             </div>
@@ -108,7 +116,7 @@ class Add extends Component {
                   type="text"
                   placeholder="acme"
                   value={this.state.WebsiteName}
-                  onChange={this.changeName}
+                  onChange={this.change.Name}
                 />
               </p>
             </div>
@@ -123,7 +131,7 @@ class Add extends Component {
                   type="text"
                   placeholder="JohnDoe02"
                   value={this.state.Username}
-                  onChange={this.changeUsername}
+                  onChange={this.change.Username}
                 />
               </p>
             </div>
@@ -138,12 +146,12 @@ class Add extends Component {
                   type="text"
                   placeholder="johndoe@gmail.com"
                   value={this.state.Email}
-                  onChange={this.changeEmail}
+                  onChange={this.change.Email}
                 />
               </p>
             </div>
 
-            <PasswordInput changeInput={this.changePassword} />
+            <PasswordInput changeInput={this.change.Password} />
 
             <div className="field">
               <label className="label" style={{ textAlign: "left" }}>
@@ -154,16 +162,11 @@ class Add extends Component {
                   className="textarea"
                   placeholder="Textarea"
                   value={this.state.Notes}
-                  onChange={this.changeNotes}
+                  onChange={this.change.Notes}
                 ></textarea>
               </p>
             </div>
-            <Upload
-              toggleEnable={this.toggleEnable}
-              toggleIsUrl={this.toggleIsUrl}
-              loadLogo={this.loadLogo}
-              loadLogoUrl={this.loadLogoUrl}
-            />
+            <Upload actions={this.logo} />
           </section>
           <footer className="modal-card-foot">
             <button className="button is-success" onClick={this.submit}>
@@ -180,8 +183,8 @@ class Add extends Component {
 }
 
 Add.propTypes = {
-  addWebsite : PropTypes.func.isRequired,
+  addWebsite: PropTypes.func.isRequired,
   fetchWebsites: PropTypes.func.isRequired,
-}
+};
 
-export default connect(null,{fetchWebsites,addWebsite})(Add);
+export default connect(null, { fetchWebsites, addWebsite })(Add);

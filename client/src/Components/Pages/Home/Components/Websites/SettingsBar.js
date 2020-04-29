@@ -1,36 +1,35 @@
 import React, { Component } from "react";
 
 class SettingsBar extends Component {
-
-
   state = {
-    listBtn : "button is-small is-primary",
-    matrixBtn : "button is-small"
-  }
+    listBtn: "button is-small is-primary",
+    matrixBtn: "button is-small",
+  };
 
-  add = () => this.props.add()
+  add = () => this.props.add();
 
-  setList = (e) => {
-    this.props.toggleView("list")
+  setList = () => {
+    this.props.toggleView("list");
     this.setState({
-    listBtn : "button is-small is-primary",
-    matrixBtn : "button is-small"
-    })
-  }
+      listBtn: "button is-small is-primary",
+      matrixBtn: "button is-small",
+    });
+  };
 
-  setMatrix = (e) => {
-    this.props.toggleView("matrix")
+  setMatrix = () => {
+    this.props.toggleView("matrix");
     this.setState({
-      listBtn : "button is-small",
-      matrixBtn : "button is-small is-primary"
-      })
-  }
-
+      listBtn: "button is-small",
+      matrixBtn: "button is-small is-primary",
+    });
+  };
 
   render() {
     return (
       <div className="panel-block">
-        <div className="button is-primary is-small" onClick={this.add}>Add item</div>
+        <div className="button is-primary is-small" onClick={this.add}>
+          Add item
+        </div>
         <p className="control navbar-item">
           <span>
             <div className="navbar-item has-dropdown is-hoverable">
@@ -47,7 +46,7 @@ class SettingsBar extends Component {
           </span>
         </p>
         <span className="navbar-item">
-          <div className={this.state.listBtn}  onClick={this.setList}>
+          <div className={this.state.listBtn} onClick={this.setList}>
             <span className="icon">
               <i className="fa fa-list"></i>
             </span>
