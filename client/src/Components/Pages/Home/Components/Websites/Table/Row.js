@@ -7,8 +7,8 @@ class Row extends Component {
       `${this.props.item.WebsiteName} Password is copied to clipboard`
     );
 
-  modify = () => this.props.modify();
-  delete = () => this.props.delete();
+  modify = () => this.props.modify(this.props.item);
+  delete = () => this.props.delete(this.props.item._id);
   render() {
     return (
       <tr>

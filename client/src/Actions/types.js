@@ -1,2 +1,3 @@
 export const FETCH_WEBSITES = "FETCH_WEBSITES"
 export const ADD_WEBSITE = "ADD_WEBSITE"
+export const DELETE_WEBSITE = "DELETE_WEBSITE"

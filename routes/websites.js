@@ -11,7 +11,7 @@ const Website = require("../models/Website");
 router.get("/", auth, async (req, res) => {
   try {
     const websites = await Website.find({ user: req.user.id }).sort({
-      date: -1
+      date: -1,
     });
     res.json({ websites });
   } catch (err) {
@@ -25,12 +25,7 @@ router.get("/", auth, async (req, res) => {
 // @access  PRIVATE
 router.post(
   "/",
-  [
-    auth,
-    check("WebsiteName", "webiste name is missing")
-      .not()
-      .isEmpty()
-  ],
+  [auth, check("WebsiteName", "webiste name is missing").not().isEmpty()],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
@@ -44,27 +39,27 @@ router.post(
       Phone,
       Password,
       Notes,
-      logoUrl
+      logoUrl,
     } = req.body;
 
     try {
-        const newWebsite = new Website({
-            user:req.user.id,
-            WebsiteName,
-            WebsiteUrl,
-            Username,
-            Email,
-            Phone,
-            Password,
-            Notes,
-            logoUrl})
-        const website = await newWebsite.save()
-        
-        res.json({website})
+      const newWebsite = new Website({
+        user: req.user.id,
+        WebsiteName,
+        WebsiteUrl,
+        Username,
+        Email,
+        Phone,
+        Password,
+        Notes,
+        logoUrl,
+      });
+      const website = await newWebsite.save();
+
+      res.json({ website });
     } catch (err) {
-        
-    console.error(err.message);
-    res.status(500).send("Server Error");
+      console.error(err.message);
+      res.status(500).send("Server Error");
     }
   }
 );
@@ -79,8 +74,16 @@ router.put("/:id", (req, res) => {
 // @route   DELETE api/websites/:id
 // @desc    Delete a Website
 // @access  PRIVATE
-router.delete("/:id", (req, res) => {
-  res.send("Delete a Website");
+router.delete("/:id", auth, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty())
+    return res.status(400).json({ errors: errors.array() });
+  try {
+    await Website.deleteOne({_id:req.params.id})
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 module.exports = router;

@@ -10,8 +10,8 @@ class Table extends Component {
     notification: false,
     text: "",
   };
-  modify = () => this.props.modify();
-  delete = () => this.props.delete();
+  modify = (obj) => this.props.modify(obj);
+  delete = (id) => this.props.delete(id);
   CloseNotif = () => this.setState({ notification: false, text: "" });
 
   notify = (text) => this.setState({ notification: true, text: text });

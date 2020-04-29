@@ -1,5 +1,8 @@
-import { FETCH_WEBSITES, ADD_WEBSITE } from "./types";
+import { FETCH_WEBSITES, ADD_WEBSITE , DELETE_WEBSITE} from "./types";
 import axios from "axios";
+
+
+
 
 // @route   GET api/websites
 // @desc    Get all users websites
@@ -42,3 +45,26 @@ export const addWebsite = (websiteData) => async (dispatch) => {
     });
   });
 };
+
+// @route   DELETE api/websites
+// @desc    Add a Website
+// @Payload The added website after sending it to the API
+export const deleteWebsite = (id) => async (dispatch) => {
+  axios({
+    method: "delete",
+    url: `http://localhost:5000/api/websites/${id}`,
+    headers: {
+      "x-auth-token":
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWVhMjY0MjFkZDQ4OWUxOTcyM2MwNDZjIn0sImlhdCI6MTU4ODA3MDAxNCwiZXhwIjoxNTg4NDMwMDE0fQ.X7BprTETybJBXatLkqbPj8IDUfS6XR25kBCg0wqIdHg",
+      "Content-Type": "application/json",
+    }
+  }).then((website) => {
+    dispatch({
+      type: DELETE_WEBSITE,
+    });
+    console.log(website)
+  });
+};
+
+
+

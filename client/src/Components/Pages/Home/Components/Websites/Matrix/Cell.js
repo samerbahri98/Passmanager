@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
+
 class Cell extends Component {
   copyPassword = () =>
     this.props.notify(
       `${this.props.elem.WebsiteName} Password is copied to clipboard`
     );
-  modify = () => this.props.modify();
-  delete = () => this.props.delete();
+  modify = () => this.props.modify(this.props.elem);
+  delete = () => this.props.delete(this.props.elem._id);
   render() {
     return (
       <div className="card">
