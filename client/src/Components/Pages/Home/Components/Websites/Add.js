@@ -20,10 +20,21 @@ class Add extends Component {
     Email: "",
     Password: "",
     notes: "",
+    upcases: false,
+    lowcases: false,
+    digits: false,
+    specials: false,
     logoisthere: false,
     logoisurl: false,
     logoFile: null,
-    logoUrl: "https://i.imgur.com/ocmhMXA.png"
+    logoUrl: "https://i.imgur.com/ocmhMXA.png",
+    logoTabsEnabled: false,
+    uploadTab: true,
+    uploadTabClassName: "is-active",
+    UrlTabClassName: "",
+    filename: "file...",
+    file: null,
+    url: ""
   };
 
   //inputs actions
@@ -44,6 +55,9 @@ class Add extends Component {
     loadUrl: url => this.setState({ logoUrl: url })
   };
 
+
+  //Client ID: 9f2a00b121ede0e
+  //Client Secret: b23e91d2b8cccf8fb974bc65d892b7d5b9e27b9d
   upload = async logoFile => {
     const formData = new FormData();
     formData.append("image", logoFile);
@@ -51,15 +65,18 @@ class Add extends Component {
       method: "post",
       url: "https://api.imgur.com/3/image",
       headers: {
-        Authorization: "Client-ID 0eddb24a01cdcc1"
+        Authorization: "Client-ID 9f2a00b121ede0e"
       },
       data: formData
     });
     this.setState({ logoUrl: feedback.data.data.link });
+    console.log(feedback)
+    console.log(this.state.logoUrl)
   };
 
   //submittion
   submit = async data => {
+    this.setState({ logoUrl: data.logoUrl });
     if (data.logoisthere && !data.logoisurl) await this.upload(data.logoFile);
     const postData = {
       WebsiteName: data.websiteName,
@@ -93,72 +110,62 @@ class Add extends Component {
           allowed: [],
           notes: "",
           logoisthere: false,
+          logoTabEnabled: false,
+          uploadTab: true,
+          uploadTabClassName: "is-active",
+          UrlTabClassName: "",
+          filename: "file...",
+          file: null,
+          url: "",
           logoisurl: false,
           logoFile: null,
           logoUrl: "https://i.imgur.com/ocmhMXA.png"
         }}
         onSubmit={data => this.submit(data)}
       >
-        {({ values, handleChange, handleBlur, handleSubmit }) => (
+        {({ values }) => (
           <Form>
-            <Modal cancel={this.cancel}>
-              <section className="modal-card-body">
-                <FieldForm
-                  label="URL"
-                  className="input"
-                  type="input"
-                  name="websiteUrl"
-                  placeholder="www.acme.com"
-                />
-                <FieldForm
-                  label="Website Name"
-                  className="input"
-                  type="input"
-                  name="websiteName"
-                  placeholder="acme"
-                />
-                <FieldForm
-                  label="Username"
-                  className="input"
-                  type="input"
-                  name="Username"
-                  placeholder="JohnDoe02"
-                />
-                <FieldForm
-                  label="Email"
-                  className="input"
-                  type="input"
-                  name="Email"
-                  placeholder="johndoe@gmail.com"
-                />
+            <Modal cancel={this.cancel} header="Add Website">
+              <FieldForm
+                label="URL"
+                className="input"
+                type="input"
+                name="websiteUrl"
+                placeholder="www.acme.com"
+              />
+              <FieldForm
+                label="Website Name"
+                className="input"
+                type="input"
+                name="websiteName"
+                placeholder="acme"
+              />
+              <FieldForm
+                label="Username"
+                className="input"
+                type="input"
+                name="Username"
+                placeholder="JohnDoe02"
+              />
+              <FieldForm
+                label="Email"
+                className="input"
+                type="input"
+                name="Email"
+                placeholder="johndoe@gmail.com"
+              />
 
-                <PasswordInput
-                  changeInput={this.change.Password}
-                  values={values}
-                  handleChange={handleChange}
-                />
-                <FieldForm
-                  label="Notes"
-                  className="textarea"
-                  type="input"
-                  name="Notes"
-                  placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae doloribus quo impedit, assumenda laboriosam ipsum?"
-                  as="textarea"
-                />
+              <PasswordInput values={values} />
+              <FieldForm
+                label="Notes"
+                className="textarea"
+                type="input"
+                name="Notes"
+                placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae doloribus quo impedit, assumenda laboriosam ipsum?"
+                as="textarea"
+              />
 
-                <Upload actions={this.logo} />
-              </section>
-              <footer className="modal-card-foot">
-                <button
-                  className="button is-success"
-                  onClick={this.handleSubmit}
-                >
-                  Save
-                </button>
-                <button className="button" onClick={this.cancel}>
-                  Cancel
-                </button>
-              </footer>
+              <Upload values={values} />
             </Modal>
           </Form>
         )}

@@ -19,7 +19,7 @@ class Delete extends Component {
         <div className="modal-background" onClick={this.cancel}></div>
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">Add Website</p>
+            <p className="modal-card-title">Delete Website</p>
             <button
               className="delete"
               aria-label="close"

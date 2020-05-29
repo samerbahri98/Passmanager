@@ -8,7 +8,7 @@ class Modal extends Component {
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title" style={{ textAlign: "left" }}>
-              Add Website
+              {this.props.header}
             </p>
             <button
               className="delete"
@@ -16,7 +16,19 @@ class Modal extends Component {
               onClick={this.props.cancel}
             ></button>
           </header>
-          {this.props.children}
+          <section className="modal-card-body">{this.props.children}</section>
+          <footer className="modal-card-foot">
+            <button
+              className="button is-success"
+              onClick={this.handleSubmit}
+              type="submit"
+            >
+              Save
+            </button>
+            <button className="button" onClick={this.props.cancel}>
+              Cancel
+            </button>
+          </footer>
         </div>
       </div>
     );

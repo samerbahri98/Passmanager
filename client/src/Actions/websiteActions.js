@@ -2,7 +2,7 @@ import { FETCH_WEBSITES, ADD_WEBSITE, DELETE_WEBSITE } from "./types";
 import axios from "axios";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU3ODExZjcyMjM2YWIzODllNzYwYWEyIn0sImlhdCI6MTU5MDQyMzY3MSwiZXhwIjoxNTkwNzgzNjcxfQ.3zMF8TZxCzyw6Vzo-yUUZ7TDl2mqmPWHen9fltUIvRs";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU3ODExZjcyMjM2YWIzODllNzYwYWEyIn0sImlhdCI6MTU5MDc4Mzc3MiwiZXhwIjoxNTkxMTQzNzcyfQ.R0caTaQmdMd_1Hb2qHYtZn9LoUucQdH5FYht5BnM_ec";
 
 // @route   GET api/websites
 // @desc    Get all users websites

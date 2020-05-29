@@ -13,6 +13,7 @@ class PasswordInput extends Component {
     if (allowed.length !== 0)
       for (let i = 0; i < this.props.values.passwordLength; i++)
         generated += allowed.charAt(Math.floor(Math.random() * allowed.length));
+    this.props.values.Password = generated;
     this.setState({ password: generated });
   };
 
@@ -77,6 +78,9 @@ class PasswordInput extends Component {
               value="!@#$%^&*_+~>?<"
               change={this.generate}
             />
+            <button type="button" className="button" onClick={this.generate}>
+              Generate
+            </button>
           </Fragment>
         ) : (
           <Fragment>
@@ -91,7 +95,7 @@ class PasswordInput extends Component {
             <Checkbox
               name="randomPassword"
               label="Generate a random password"
-              change={()=>console.log("object")}
+              change={() => console.log("object")}
             />
           </Fragment>
         )}

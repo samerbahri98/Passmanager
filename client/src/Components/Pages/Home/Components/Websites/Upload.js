@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
-
+import Checkbox from "./Form/Checkbox";
+import FieldForm from "./Form/FieldForm";
+import { Field } from "formik"
 class Upload extends Component {
   state = {
     enabled: false,
@@ -9,7 +11,7 @@ class Upload extends Component {
     UrlTabClassName: "",
     filename: "file...",
     file: null,
-    url: "",
+    url: ""
   };
 
   toggleEnable = () => {
@@ -19,13 +21,12 @@ class Upload extends Component {
 
   tabs = {
     upload: () => {
-      if (!this.statae.uploadTab) {
+      if (!this.state.uploadTab) {
         this.setState({
           uploadTab: true,
           uploadTabClassName: "is-active",
-          UrlTabClassName: "",
+          UrlTabClassName: ""
         });
-        this.props.actions.toggleIsUrl();
       }
     },
     url: () => {
@@ -33,25 +34,25 @@ class Upload extends Component {
         this.setState({
           uploadTab: false,
           uploadTabClassName: "",
-          UrlTabClassName: "is-active",
+          UrlTabClassName: "is-active"
         });
-        this.props.actions.toggleIsUrl();
       }
-    },
+    }
   };
 
   load = {
-    file: (e) => {
+    file: e => {
       this.setState({
         file: e.target.files[0],
-        filename: e.target.files[0].name,
+        filename: e.target.files[0].name
       });
-      this.props.actions.loadFile(e.target.files[0]);
+      this.props.values.logoFile=e.target.files[0];
+      this.props.values.filename=e.target.files[0].name
     },
-    url: (e) => {
+    url: e => {
       this.setState({ url: e.target.value });
       this.props.actions.loadUrl(e.target.value);
-    },
+    }
   };
   render() {
     return (
@@ -60,13 +61,8 @@ class Upload extends Component {
           <label className="label" style={{ textAlign: "left" }}>
             Website Logo
           </label>
-          <p className="control">
-            <label className="checkbox">
-              <input type="checkbox" onChange={this.toggleEnable} />
-              Add website logo
-            </label>
-          </p>
-          {this.state.enabled ? (
+          <Checkbox name="logoTabEnabled" label="Add website logo" />
+          {this.props.values.logoTabEnabled ? (
             <Fragment>
               <div className="tabs">
                 <ul>
@@ -105,15 +101,22 @@ class Upload extends Component {
                   </div>
                 </p>
               ) : (
-                <p className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    placeholder="acme.com/logo.ong"
-                    value={this.state.url}
-                    onChange={this.load.url}
-                  />
-                </p>
+                <FieldForm
+                label="Logo URL"
+                className="input"
+                type="input"
+                name="logoUrl"
+                placeholder="acme.com/logo.ong"
+              />
+                // <p className="control">
+                //   <input
+                //     className="input"
+                //     type="text"
+                //     placeholder="acme.com/logo.ong"
+                //     value={this.state.url}
+                //     onChange={this.load.url}
+                //   />
+                // </p>
               )}
             </Fragment>
           ) : (
