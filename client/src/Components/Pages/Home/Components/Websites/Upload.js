@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
-import axios from "axios";
 import Checkbox from "./Form/Checkbox";
 import FieldForm from "./Form/FieldForm";
-import { Field } from "formik"
 class Upload extends Component {
   state = {
     enabled: false,

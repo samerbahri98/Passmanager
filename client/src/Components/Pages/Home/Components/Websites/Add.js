@@ -11,6 +11,7 @@ import {
 import { Formik, Form } from "formik";
 import Modal from "./Modal";
 import FieldForm from "./Form/FieldForm";
+import Hash from "../../../../../Hash"
 
 class Add extends Component {
   state = {
@@ -36,19 +37,27 @@ class Add extends Component {
   //submittion
   submit = async (data) => {
     this.setState({ logoUrl: data.logoUrl });
-    console.log(data);
     if (data.logoFile !== null && data.logoTabEnabled)
       await this.upload(data.logoFile);
+    // const postData = {
+    //   WebsiteName: Hash.encrypt(data.websiteName),
+    //   WebsiteUrl: Hash.encrypt(data.websiteUrl),
+    //   Username: Hash.encrypt(data.Username),
+    //   Email: Hash.encrypt(data.Email),
+    //   Password: Hash.encrypt(data.Password),
+    //   Notes: Hash.encrypt(data.Notes),
+    //   logoUrl: Hash.encrypt(this.state.logoUrl),
+    // };
     const postData = {
       WebsiteName: data.websiteName,
       WebsiteUrl: data.websiteUrl,
-      Username: data.Username,
-      Email: data.Email,
-      Password: data.Password,
-      Notes: data.Notes,
+      Username: Hash.encrypt(data.Username),
+      Email: Hash.encrypt(data.Email),
+      Password: Hash.encrypt(data.Password),
+      Notes: Hash.encrypt(data.Notes),
       logoUrl: this.state.logoUrl,
     };
-
+    console.log(postData)
     await this.props.addWebsite(postData);
     await this.props.fetchWebsites();
 
