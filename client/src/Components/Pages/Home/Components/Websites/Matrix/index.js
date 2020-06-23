@@ -5,14 +5,10 @@ import { connect } from "react-redux";
 import { fetchWebsites } from "../../../../../../Actions/websiteActions";
 
 class Matrix extends Component {
-  state = {
-    notification: false,
-    text: "",
-  };
   modify = (obj) => this.props.modify(obj);
   delete = (obj) => this.props.delete(obj);
-  CloseNotif = () => this.setState({ notification: false, text: "" });
-  notify = (text) => this.setState({ notification: true, text: text });
+  notify = (text) =>
+    this.props.notify(text, "notification is-primary is-light");
 
   componentDidMount() {
     this.props.fetchWebsites();
@@ -21,15 +17,6 @@ class Matrix extends Component {
   render() {
     return (
       <Fragment>
-        {this.state.notification ? (
-          <div className="notification is-primary is-light">
-            <button className="delete" onClick={this.CloseNotif}></button>
-            {this.state.text}
-          </div>
-        ) : (
-          <Fragment />
-        )}
-
         <div className="panel-block">
           <div className="matrix container is-hoverable">
             {typeof this.props.list === "undefined" ? (

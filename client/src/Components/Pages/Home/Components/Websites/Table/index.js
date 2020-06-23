@@ -6,15 +6,11 @@ import { connect } from "react-redux";
 import { fetchWebsites } from "../../../../../../Actions/websiteActions";
 
 class Table extends Component {
-  state = {
-    notification: false,
-    text: "",
-  };
   modify = (obj) => this.props.modify(obj);
   delete = (id) => this.props.delete(id);
-  CloseNotif = () => this.setState({ notification: false, text: "" });
 
-  notify = (text) => this.setState({ notification: true, text: text });
+  notify = (text) =>
+    this.props.notify(text, "notification is-primary is-light");
 
   componentDidMount() {
     this.props.fetchWebsites();
@@ -29,14 +25,6 @@ class Table extends Component {
 
     return (
       <Fragment>
-        {this.state.notification ? (
-          <div className="notification is-primary is-light">
-            <button className="delete" onClick={this.CloseNotif}></button>
-            {this.state.text}
-          </div>
-        ) : (
-          <Fragment />
-        )}
         <div className="panel-block table-container">
           <table className="table is-hoverable is-fullwidth">
             <Thead />

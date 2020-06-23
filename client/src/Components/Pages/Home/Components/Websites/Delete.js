@@ -10,6 +10,7 @@ class Delete extends Component {
   confirm = async () => {
     await this.props.deleteWebsite(this.props.id);
     await this.props.fetchWebsites();
+    this.props.notify("Website Deleted", "notification is-danger is-light")
     this.cancel();
   };
   cancel = () => this.props.cancel();

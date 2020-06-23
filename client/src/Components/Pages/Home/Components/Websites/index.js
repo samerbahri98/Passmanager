@@ -6,6 +6,7 @@ import Table from "./Table";
 import Add from "./Add";
 import Modify from "./Modify";
 import Delete from "./Delete";
+import Notification from "./Notification";
 
 class Website extends Component {
   state = {
@@ -16,8 +17,26 @@ class Website extends Component {
     delete: false,
     obj: {},
     id: "",
+    notification: false,
+    notificationText: "",
+    notificationClass: "",
   };
 
+  notify = async (notificationText, notificationClass) => {
+    this.setState({
+      notification: true,
+      notificationText: notificationText,
+      notificationClass: notificationClass,
+    });
+
+    setTimeout(()=>this.closeNotification(),2000)
+  };
+  closeNotification = () =>
+    this.setState({
+      notification: false,
+      notificationClass: "",
+      notificationText: "",
+    });
   add = () => this.setState({ add: true });
   modify = (obj) => this.setState({ modify: true, obj: obj });
   delete = (id) => {
@@ -33,14 +52,14 @@ class Website extends Component {
   render() {
     return (
       <div className="column">
-        {this.state.add ? <Add cancel={this.cancel} /> : <Fragment />}
+        {this.state.add ? <Add cancel={this.cancel}  notify={this.notify}/> : <Fragment />}
         {this.state.modify ? (
           <Modify cancel={this.cancel} obj={this.state.obj} />
         ) : (
           <Fragment />
         )}
         {this.state.delete ? (
-          <Delete cancel={this.cancel} id={this.state.id} />
+          <Delete cancel={this.cancel} id={this.state.id} notify={this.notify}/>
         ) : (
           <Fragment />
         )}
@@ -48,14 +67,27 @@ class Website extends Component {
           <p className="panel-heading">All items</p>
           <SettingsBar toggleView={this.toggleView} add={this.add} />
           <SearchBar />
-          {this.state.display === "list" ? (
-            <Table
-              list={this.state.list}
-              modify={this.modify}
-              delete={this.delete}
+          {this.state.notification ? (
+            <Notification
+              class={this.state.notificationClass}
+              text={this.state.notificationText}
+              closeNotif={this.closeNotification}
             />
           ) : (
-            <Matrix modify={this.modify} delete={this.delete} />
+            <Fragment />
+          )}
+          {this.state.display === "list" ? (
+            <Table
+              modify={this.modify}
+              delete={this.delete}
+              notify={this.notify}
+            />
+          ) : (
+            <Matrix
+              modify={this.modify}
+              delete={this.delete}
+              notify={this.notify}
+            />
           )}
         </nav>
       </div>

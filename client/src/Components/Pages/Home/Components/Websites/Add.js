@@ -90,7 +90,7 @@ class Add extends Component {
 
     await this.props.addWebsite(postData);
     await this.props.fetchWebsites();
-
+    this.props.notify(`${data.websiteName} is saved`, "notification is-primary is-light")
     this.cancel();
   };
 

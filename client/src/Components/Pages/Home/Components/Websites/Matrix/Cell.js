@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class Cell extends Component {
   copyPassword = () =>
