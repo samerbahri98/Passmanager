@@ -6,58 +6,88 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   fetchWebsites,
-  addWebsite,
+  addWebsite
 } from "../../../../../Actions/websiteActions";
 import { Formik, Form } from "formik";
 import Modal from "./Modal";
 import FieldForm from "./Form/FieldForm";
-import Hash from "../../../../../Hash"
 
 class Add extends Component {
   state = {
+    websiteName: "",
+    websiteUrl: "",
+    Username: "",
+    Email: "",
+    Password: "",
+    notes: "",
+    upcases: false,
+    lowcases: false,
+    digits: false,
+    specials: false,
+    logoisthere: false,
+    logoisurl: false,
+    logoFile: null,
     logoUrl: "https://i.imgur.com/ocmhMXA.png",
+    logoTabsEnabled: false,
+    uploadTab: true,
+    uploadTabClassName: "is-active",
+    UrlTabClassName: "",
+    filename: "file...",
+    file: null,
+    url: ""
   };
+
+  //inputs actions
+  change = {
+    Url: e => this.setState({ websiteUrl: e.target.value }),
+    Name: e => this.setState({ websiteName: e.target.value }),
+    Username: e => this.setState({ Username: e.target.value }),
+    Email: e => this.setState({ Email: e.target.value }),
+    Notes: e => this.setState({ Notes: e.target.value }),
+    Password: e => this.setState({ Password: e })
+  };
+
+  //logo actions
+  logo = {
+    toggle: () => this.setState({ logoisthere: !this.state.logoisthere }),
+    isUrl: () => this.setState({ logoisurl: !this.state.logoisurl }),
+    loadFile: file => this.setState({ logoFile: file }),
+    loadUrl: url => this.setState({ logoUrl: url })
+  };
+
 
   //Client ID: 9f2a00b121ede0e
   //Client Secret: b23e91d2b8cccf8fb974bc65d892b7d5b9e27b9d
-  upload = async (logoFile) => {
+  upload = async logoFile => {
     const formData = new FormData();
     formData.append("image", logoFile);
     const feedback = await axios({
       method: "post",
       url: "https://api.imgur.com/3/image",
       headers: {
-        Authorization: "Client-ID c924b8f7e105d79",
+        Authorization: "Client-ID 9f2a00b121ede0e"
       },
-      data: formData,
+      data: formData
     });
     this.setState({ logoUrl: feedback.data.data.link });
+    console.log(feedback)
+    console.log(this.state.logoUrl)
   };
 
   //submittion
-  submit = async (data) => {
+  submit = async data => {
     this.setState({ logoUrl: data.logoUrl });
-    if (data.logoFile !== null && data.logoTabEnabled)
-      await this.upload(data.logoFile);
-    // const postData = {
-    //   WebsiteName: Hash.encrypt(data.websiteName),
-    //   WebsiteUrl: Hash.encrypt(data.websiteUrl),
-    //   Username: Hash.encrypt(data.Username),
-    //   Email: Hash.encrypt(data.Email),
-    //   Password: Hash.encrypt(data.Password),
-    //   Notes: Hash.encrypt(data.Notes),
-    //   logoUrl: Hash.encrypt(this.state.logoUrl),
-    // };
+    if (data.logoisthere && !data.logoisurl) await this.upload(data.logoFile);
     const postData = {
       WebsiteName: data.websiteName,
       WebsiteUrl: data.websiteUrl,
-      Username: Hash.encrypt(data.Username),
-      Email: Hash.encrypt(data.Email),
-      Password: Hash.encrypt(data.Password),
-      Notes: Hash.encrypt(data.Notes),
-      logoUrl: this.state.logoUrl,
+      Username: data.Username,
+      Email: data.Email,
+      Password: data.Password,
+      Notes: data.Notes,
+      logoUrl: this.state.logoUrl
     };
-    console.log(postData)
+
     await this.props.addWebsite(postData);
     await this.props.fetchWebsites();
 
@@ -89,9 +119,9 @@ class Add extends Component {
           url: "",
           logoisurl: false,
           logoFile: null,
-          logoUrl: "https://i.imgur.com/ocmhMXA.png",
+          logoUrl: "https://i.imgur.com/ocmhMXA.png"
         }}
-        onSubmit={(data) => this.submit(data)}
+        onSubmit={data => this.submit(data)}
       >
         {({ values }) => (
           <Form>
@@ -146,7 +176,7 @@ class Add extends Component {
 
 Add.propTypes = {
   addWebsite: PropTypes.func.isRequired,
-  fetchWebsites: PropTypes.func.isRequired,
+  fetchWebsites: PropTypes.func.isRequired
 };
 
 export default connect(null, { fetchWebsites, addWebsite })(Add);

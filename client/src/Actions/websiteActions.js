@@ -1,43 +1,38 @@
 import { FETCH_WEBSITES, ADD_WEBSITE, DELETE_WEBSITE } from "./types";
+import encryption from "../lock/encryption";
 import axios from "axios";
-import Hash from "../Hash";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU3ODExZjcyMjM2YWIzODllNzYwYWEyIn0sImlhdCI6MTU5MDc4Mzc3MiwiZXhwIjoxNTkxMTQzNzcyfQ.R0caTaQmdMd_1Hb2qHYtZn9LoUucQdH5FYht5BnM_ec";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU3ODExZjcyMjM2YWIzODllNzYwYWEyIn0sImlhdCI6MTU5Mjg2OTgwMCwiZXhwIjoxNTkzMjI5ODAwfQ.rgLy9kaiRaLm4_umBuiZ9AoqzRzfQXGRT0tlKUBT_2g";
 
 // @route   GET api/websites
 // @desc    Get all users websites
 // @Payload Array of websites from the api
 export const fetchWebsites = () => async (dispatch) => {
-  fetch("http://localhost:5000/api/websites/", {
+  axios({
+    url: "http://localhost:5000/api/websites/",
     method: "GET",
     headers: {
       "x-auth-token": token,
       "Content-Type": "application/json",
     },
-  })
-    .then((websites) => websites.json())
-    .then((websites) => {
-      // for( const property in websites.websites){
-      //   websites.websites.property=Hash.decrypt(websites.websites.property)
-      // }
-      if (websites.websites.size !== 0) {
-        websites.websites.Username = Hash.decrypt(websites.websites.Username);
-        websites.websites.Email = Hash.decrypt(websites.websites.Email);
-        websites.websites.Password = Hash.decrypt(websites.websites.Password);
-        websites.websites.Notes = Hash.decrypt(websites.websites.Notes);
-      }
-      dispatch({
-        type: FETCH_WEBSITES,
-        payload: websites.websites,
-      });
+  }).then((websites) => {
+    console.log(websites);
+    dispatch({
+      type: FETCH_WEBSITES,
+      payload: websites.data.websites,
     });
+  });
 };
 
 // @route   POST api/websites
 // @desc    Add a Website
 // @Payload The added website after sending it to the API
 export const addWebsite = (websiteData) => async (dispatch) => {
+  Object.keys(websiteData).forEach(
+    (item) =>
+      (websiteData[item] = encryption.encrypt(websiteData[item], "samer"))
+  );
   axios({
     method: "post",
     url: "http://localhost:5000/api/websites",
@@ -51,6 +46,11 @@ export const addWebsite = (websiteData) => async (dispatch) => {
       type: ADD_WEBSITE,
       payload: website.data.website,
     });
+    let code = encryption.encrypt(website.data.website.Password, "samer");
+    console.log(code);
+    let recode = encryption.decrypt(code, "samer");
+    console.log(recode);
+    console.log(typeof recode);
   });
 };
 
@@ -69,6 +69,5 @@ export const deleteWebsite = (id) => async (dispatch) => {
     dispatch({
       type: DELETE_WEBSITE,
     });
-    console.log(website);
   });
 };
