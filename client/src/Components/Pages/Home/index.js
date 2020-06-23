@@ -5,7 +5,7 @@ import Websites from "./Components/Websites";
 const Home = () => {
   return (
     <div className="columns">
-      <LeftMenu />
+      {/* <LeftMenu /> */}
       <Websites />
     </div>
   );

@@ -101,7 +101,7 @@ class Add extends Component {
       <Formik
         initialValues={{
           websiteName: "",
-          websiteUrl: "",
+          websiteUrl: "https://",
           Username: "",
           Email: "",
           Password: "",
@@ -132,6 +132,7 @@ class Add extends Component {
                 type="input"
                 name="websiteUrl"
                 placeholder="www.acme.com"
+                value={values.websiteUrl}
               />
               <FieldForm
                 label="Website Name"

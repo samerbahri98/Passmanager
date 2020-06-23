@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class Cell extends Component {
   copyPassword = () =>
@@ -46,7 +46,11 @@ class Cell extends Component {
                   </a>
                 </span>
                 <span className="panel-icon">
-                  <a href={this.props.elem.WebsiteUrl} target="_blank">
+                  <a
+                    rel={"external"}
+                    target="_blank"
+                    href={this.props.elem.WebsiteUrl}
+                  >
                     <i className="fa fa-globe"></i>
                   </a>
                 </span>
