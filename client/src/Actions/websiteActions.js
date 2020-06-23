@@ -2,8 +2,7 @@ import { FETCH_WEBSITES, ADD_WEBSITE, DELETE_WEBSITE } from "./types";
 import encryption from "../lock/encryption";
 import axios from "axios";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWU3ODExZjcyMjM2YWIzODllNzYwYWEyIn0sImlhdCI6MTU5Mjg2OTgwMCwiZXhwIjoxNTkzMjI5ODAwfQ.rgLy9kaiRaLm4_umBuiZ9AoqzRzfQXGRT0tlKUBT_2g";
+const token = localStorage.getItem("token");
 
 // @route   GET api/websites
 // @desc    Get all users websites
