@@ -1,4 +1,9 @@
-import { FETCH_WEBSITES, ADD_WEBSITE, DELETE_WEBSITE } from "./types";
+import {
+  FETCH_WEBSITES,
+  ADD_WEBSITE,
+  DELETE_WEBSITE,
+  MODIFY_WEBSITE,
+} from "./types";
 import encryption from "../lock/encryption";
 import axios from "axios";
 
@@ -67,6 +72,30 @@ export const deleteWebsite = (id) => async (dispatch) => {
   }).then((website) => {
     dispatch({
       type: DELETE_WEBSITE,
+    });
+  });
+};
+
+// @route   PUT api/websites
+// @desc    UPDATE Website
+// @Payload The added website after sending it to the API
+export const modifyWebsite = (id, websiteData) => async (dispatch) => {
+  Object.keys(websiteData).forEach(
+    (item) =>
+      (websiteData[item] = encryption.encrypt(websiteData[item], "samer"))
+  );
+  console.log({ id: id, data: websiteData });
+  axios({
+    method: "put",
+    url: `http://localhost:5000/api/websites/${id}`,
+    headers: {
+      "x-auth-token": token,
+      "Content-Type": "application/json",
+    },
+    data: JSON.stringify(websiteData),
+  }).then((website) => {
+    dispatch({
+      type: MODIFY_WEBSITE,
     });
   });
 };

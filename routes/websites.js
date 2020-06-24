@@ -67,8 +67,29 @@ router.post(
 // @route   PUT api/websites/:id
 // @desc    Update a Website
 // @access  PRIVATE
-router.put("/:id", (req, res) => {
-  res.send("Update a Website");
+router.put("/:id", auth, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty())
+    return res.status(400).json({ errors: errors.array() });
+  try {
+    const newWebsite = {
+      $set: {
+        user: req.user.id,
+        WebsiteName: req.body.WebsiteName,
+        WebsiteUrl: req.body.WebsiteUrl,
+        Username: req.body.Username,
+        Email: req.body.Email,
+        Phone: req.body.Phone,
+        Password: req.body.Password,
+        Notes: req.body.Notes,
+        logoUrl: req.body.logoUrl,
+      },
+    };
+    await Website.findOneAndUpdate({ _id: req.params.id}, newWebsite );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 // @route   DELETE api/websites/:id
@@ -79,7 +100,7 @@ router.delete("/:id", auth, async (req, res) => {
   if (!errors.isEmpty())
     return res.status(400).json({ errors: errors.array() });
   try {
-    await Website.deleteOne({_id:req.params.id})
+    await Website.deleteOne({ _id: req.params.id });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

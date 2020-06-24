@@ -29,7 +29,7 @@ class Website extends Component {
       notificationClass: notificationClass,
     });
 
-    setTimeout(()=>this.closeNotification(),2000)
+    setTimeout(() => this.closeNotification(), 2000);
   };
   closeNotification = () =>
     this.setState({
@@ -38,7 +38,7 @@ class Website extends Component {
       notificationText: "",
     });
   add = () => this.setState({ add: true });
-  modify = (obj) => this.setState({ modify: true, obj: obj });
+  modify = (obj) => this.setState({ modify: true, obj: obj, id: obj._id });
   delete = (id) => {
     console.log(id);
     this.setState({ delete: true, id: id });
@@ -52,14 +52,27 @@ class Website extends Component {
   render() {
     return (
       <div className="column">
-        {this.state.add ? <Add cancel={this.cancel}  notify={this.notify}/> : <Fragment />}
+        {this.state.add ? (
+          <Add cancel={this.cancel} notify={this.notify} />
+        ) : (
+          <Fragment />
+        )}
         {this.state.modify ? (
-          <Modify cancel={this.cancel} obj={this.state.obj} />
+          <Modify
+            cancel={this.cancel}
+            obj={this.state.obj}
+            id={this.state.id}
+            notify={this.notify}
+          />
         ) : (
           <Fragment />
         )}
         {this.state.delete ? (
-          <Delete cancel={this.cancel} id={this.state.id} notify={this.notify}/>
+          <Delete
+            cancel={this.cancel}
+            id={this.state.id}
+            notify={this.notify}
+          />
         ) : (
           <Fragment />
         )}

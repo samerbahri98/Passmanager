@@ -20,6 +20,7 @@ const Edit = (props) => {
         type="input"
         name="websiteName"
         placeholder="acme"
+        value={props.values.websiteName}
       />
       <FieldForm
         label="Username"
@@ -27,6 +28,7 @@ const Edit = (props) => {
         type="input"
         name="Username"
         placeholder="JohnDoe02"
+        value={props.values.Username}
       />
       <FieldForm
         label="Email"
@@ -34,6 +36,7 @@ const Edit = (props) => {
         type="input"
         name="Email"
         placeholder="johndoe@gmail.com"
+        value={props.values.Email}
       />
 
       <PasswordInput values={props.values} />
@@ -44,6 +47,7 @@ const Edit = (props) => {
         name="Notes"
         placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae doloribus quo impedit, assumenda laboriosam ipsum?"
         as="textarea"
+        value={props.values.Notes}
       />
 
       <Upload values={props.values} />

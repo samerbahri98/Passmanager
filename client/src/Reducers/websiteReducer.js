@@ -1,4 +1,4 @@
-import { FETCH_WEBSITES, ADD_WEBSITE, DELETE_WEBSITE } from "../Actions/types";
+import { FETCH_WEBSITES, ADD_WEBSITE, DELETE_WEBSITE ,MODIFY_WEBSITE } from "../Actions/types";
 import encryption from "../lock/encryption";
 
 const initialState = {
@@ -19,11 +19,6 @@ export default (state = initialState, action) => {
           elem.logoUrl=encryption.decrypt(elem.logoUrl,salt)
           elem.Notes=encryption.decrypt(elem.Notes,salt)
           elem.Password=encryption.decrypt(elem.Password,salt)
-
-          // Object.keys(elem).forEach((item) => {
-          //   // if(typeof elem[item]!=="string")
-          //   // elem[item]=encryption.decrypt(elem[item],"samer")
-          // });
         });
       }
       return { ...state, websitesList: load };
@@ -33,6 +28,9 @@ export default (state = initialState, action) => {
     }
     case DELETE_WEBSITE: {
       console.log(action.payload);
+    }
+    case MODIFY_WEBSITE:{
+      console.log(action.payload)
     }
     default:
       return state;

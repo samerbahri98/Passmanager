@@ -70,7 +70,7 @@ class Add extends Component {
           randomPassword: false,
           passwordLength: 10,
           allowed: [],
-          notes: "",
+          Notes: "",
           logoisthere: false,
           logoTabEnabled: false,
           uploadTab: true,
