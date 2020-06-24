@@ -42,14 +42,20 @@ const Dropdown = (props) => {
                 </a>
               </Link>
               <hr className="navbar-divider" />
-              <Link to="/logout">
-                <a className="navbar-item">
-                  <span className="icon">
-                    <i className="fa fa-sign-out"></i>
-                  </span>
-                  Log out
-                </a>
-              </Link>
+              {/* <Link to="/logout"> */}
+              <a
+                className="navbar-item"
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload(false);
+                }}
+              >
+                <span className="icon">
+                  <i className="fa fa-sign-out"></i>
+                </span>
+                Log out
+              </a>
+              {/* </Link> */}
             </div>
           </div>
         </div>

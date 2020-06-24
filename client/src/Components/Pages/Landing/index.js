@@ -1,13 +1,15 @@
 import React, { Component, Frqgment, Fragment } from "react";
 import Login from "./Login";
+import Register from "./Register";
 import art from "./art.svg";
 import Brand from "../../Layout/Navbar/Brand";
 import Footer from "../../Layout/Footer";
 
 class Landing extends Component {
-  state = { error: false };
-  invalid = () => this.setState({ error: true });
-  clsoeInvalid = () =>  this.setState({ error: false });
+  state = { error: false, register: false, messageError: "" };
+  invalid = (text) => this.setState({ error: true, messageError: text });
+  clsoeInvalid = () => this.setState({ error: false, messageError: "" });
+  toggleRegister = () => this.setState({ register: !this.state.register });
   render() {
     return (
       <Fragment>
@@ -19,12 +21,12 @@ class Landing extends Component {
           </div>
         </section>
         <div className="container is-centered">
+          <br />
           <div className="columns">
             <div className="column">
               <img src={art} />
             </div>
             <div className="column">
-              <br />
               <div className="container is-fluid">
                 <div className="notification">
                   {this.state.error ? (
@@ -33,13 +35,22 @@ class Landing extends Component {
                         className="delete"
                         onClick={this.clsoeInvalid}
                       ></button>
-                      Invalid data
+                      {this.state.messageError}
                     </div>
                   ) : (
                     <Fragment />
                   )}
-
-                  <Login invalid={this.invalid} />
+                  {this.state.register ? (
+                    <Register
+                      invalid={this.invalid}
+                      enable={this.toggleRegister}
+                    />
+                  ) : (
+                    <Login
+                      invalid={this.invalid}
+                      enable={this.toggleRegister}
+                    />
+                  )}
                 </div>
               </div>
             </div>

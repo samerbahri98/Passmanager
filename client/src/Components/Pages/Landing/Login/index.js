@@ -10,13 +10,15 @@ class Login extends Component {
       url: "http://localhost:5000/api/auth/",
       headers: { "Content-Type": "application/json" },
       data: data,
-    }).then((jeton) => {
-      console.log(jeton);
-      localStorage.setItem("token", jeton.data.token);
-      window.location.reload(false)
-    }).catch(error =>{
-        if(error.response.status===400)this.props.invalid();
     })
+      .then((jeton) => {
+        console.log(jeton);
+        localStorage.setItem("token", jeton.data.token);
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        if (error.response.status === 400) this.props.invalid("Invalid data");
+      });
   };
   render() {
     return (
@@ -53,7 +55,13 @@ class Login extends Component {
                 </button>
               </p>
               <p className="control">
-                <button className="button is-link">register</button>
+                <button
+                  className="button is-link"
+                  onClick={this.props.enable}
+                  type="button"
+                >
+                  register
+                </button>
               </p>
               <p className="control">
                 <button className="button is-link">demo</button>
