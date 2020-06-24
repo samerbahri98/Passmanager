@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-interface DropdownProps {
-  username: string;
-}
-
-const Dropdown: React.SFC<DropdownProps> = props => {
+const Dropdown = (props) => {
   return (
     <div id="navbarBasicExample" className="navbar-end">
       <div className="navbar-start">
@@ -46,12 +42,14 @@ const Dropdown: React.SFC<DropdownProps> = props => {
                 </a>
               </Link>
               <hr className="navbar-divider" />
-              <a className="navbar-item">
-                <span className="icon">
-                  <i className="fa fa-sign-out"></i>
-                </span>
-                Log out
-              </a>
+              <Link to="/logout">
+                <a className="navbar-item">
+                  <span className="icon">
+                    <i className="fa fa-sign-out"></i>
+                  </span>
+                  Log out
+                </a>
+              </Link>
             </div>
           </div>
         </div>
