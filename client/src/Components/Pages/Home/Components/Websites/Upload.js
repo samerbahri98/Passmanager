@@ -9,7 +9,7 @@ class Upload extends Component {
     UrlTabClassName: "",
     filename: "file...",
     file: null,
-    url: ""
+    url: "",
   };
 
   toggleEnable = () => {
@@ -23,8 +23,9 @@ class Upload extends Component {
         this.setState({
           uploadTab: true,
           uploadTabClassName: "is-active",
-          UrlTabClassName: ""
+          UrlTabClassName: "",
         });
+        this.props.values.logoisurl = false;
       }
     },
     url: () => {
@@ -32,25 +33,27 @@ class Upload extends Component {
         this.setState({
           uploadTab: false,
           uploadTabClassName: "",
-          UrlTabClassName: "is-active"
+          UrlTabClassName: "is-active",
         });
+        this.props.values.logoisurl = true;
       }
-    }
+    },
   };
 
   load = {
-    file: e => {
+    file: (e) => {
       this.setState({
         file: e.target.files[0],
-        filename: e.target.files[0].name
+        filename: e.target.files[0].name,
       });
-      this.props.values.logoFile=e.target.files[0];
-      this.props.values.filename=e.target.files[0].name
+      this.props.values.logoFile = e.target.files[0];
+      this.props.values.filename = e.target.files[0].name;
+      this.props.values.logoisthere = true;
     },
-    url: e => {
+    url: (e) => {
       this.setState({ url: e.target.value });
       this.props.actions.loadUrl(e.target.value);
-    }
+    },
   };
   render() {
     return (
@@ -100,12 +103,12 @@ class Upload extends Component {
                 </p>
               ) : (
                 <FieldForm
-                label="Logo URL"
-                className="input"
-                type="input"
-                name="logoUrl"
-                placeholder="acme.com/logo.ong"
-              />
+                  label="Logo URL"
+                  className="input"
+                  type="input"
+                  name="logoUrl"
+                  placeholder="acme.com/logo.ong"
+                />
                 // <p className="control">
                 //   <input
                 //     className="input"
