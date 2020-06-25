@@ -21,8 +21,12 @@ class Website extends Component {
     notificationText: "",
     notificationClass: "",
     searchValue: "",
+    select: "NO",
   };
 
+  select = async (text) => {
+    await this.setState({ select: text });
+  };
   searchChange = (text) => this.setState({ searchValue: text });
   notify = async (notificationText, notificationClass) => {
     this.setState({
@@ -80,7 +84,11 @@ class Website extends Component {
         )}
         <nav className="panel">
           <p className="panel-heading">All items</p>
-          <SettingsBar toggleView={this.toggleView} add={this.add} />
+          <SettingsBar
+            toggleView={this.toggleView}
+            add={this.add}
+            select={this.select}
+          />
           <SearchBar
             searchValue={this.state.searchValue}
             searchChange={this.searchChange}
@@ -100,6 +108,7 @@ class Website extends Component {
               delete={this.delete}
               notify={this.notify}
               searchValue={this.state.searchValue}
+              select={this.state.select}
             />
           ) : (
             <Matrix
@@ -107,6 +116,7 @@ class Website extends Component {
               delete={this.delete}
               notify={this.notify}
               searchValue={this.state.searchValue}
+              select={this.state.select}
             />
           )}
         </nav>

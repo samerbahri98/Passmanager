@@ -34,12 +34,15 @@ class SettingsBar extends Component {
           <span>
             <div className="navbar-item has-dropdown is-hoverable">
               <span className="select sort is-small">
-                <select>
-                  <option>Sort by:</option>
-                  <option>Name (A-Z)</option>
-                  <option>Name (Z-A)</option>
-                  <option>Date (Oldest)</option>
-                  <option>Date (Newest)</option>
+                <select
+                  onChange={(e) => {
+                    this.props.select(e.target.value);
+                  }}
+                >
+                  <option value="NO">Date (Newest)</option>
+                  <option value="ON">Date (Oldest)</option>
+                  <option value="AZ">Name (A-Z)</option>
+                  <option value="ZA">Name (Z-A)</option>
                 </select>
               </span>
             </div>

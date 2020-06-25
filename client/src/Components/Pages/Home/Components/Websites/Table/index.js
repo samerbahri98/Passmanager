@@ -16,6 +16,24 @@ class Table extends Component {
     this.props.fetchWebsites();
   }
 
+  sorting = (a, b) => {
+    let result;
+    switch (this.props.select) {
+      case "ON":
+        result = Date.parse(a.date) - Date.parse(b.date);
+        break;
+      case "NO":
+        result = Date.parse(b.date) - Date.parse(a.date);
+        break;
+      case "AZ":
+        result = a.WebsiteName.localeCompare(b.WebsiteName);
+        break;
+      case "ZA":
+        result = b.WebsiteName.localeCompare(a.WebsiteName);
+        break;
+    }
+    return result;
+  };
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.website);
     if (nextProps.website) this.props.fetchWebsites();
@@ -38,6 +56,8 @@ class Table extends Component {
                       elem.Email.indexOf(this.props.searchValue) >= 0 ||
                       elem.Notes.indexOf(this.props.searchValue) >= 0
                   )
+
+                  .sort((a, b) => this.sorting(a, b))
                   .map((elem, index) => (
                     <Row
                       key={index}

@@ -14,6 +14,25 @@ class Matrix extends Component {
     this.props.fetchWebsites();
   }
 
+  sorting = (a, b) => {
+    let result;
+    switch (this.props.select) {
+      case "ON":
+        result = Date.parse(a.date) - Date.parse(b.date);
+        break;
+      case "NO":
+        result = Date.parse(b.date) - Date.parse(a.date);
+        break;
+      case "AZ":
+        result = a.WebsiteName.localeCompare(b.WebsiteName);
+        break;
+      case "ZA":
+        result = b.WebsiteName.localeCompare(a.WebsiteName);
+        break;
+    }
+    return result;
+  };
+
   render() {
     return (
       <Fragment>
@@ -31,6 +50,7 @@ class Matrix extends Component {
                     elem.Email.indexOf(this.props.searchValue) >= 0 ||
                     elem.Notes.indexOf(this.props.searchValue) >= 0
                 )
+                .sort((a, b) => this.sorting(a, b))
                 .map((elem, index) => (
                   <Cell
                     key={index}
