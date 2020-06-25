@@ -20,7 +20,11 @@ class Login extends Component {
         .then((jeton) => {
           console.log(jeton);
           if (jeton.data.msg !== "") {
-            localStorage.setItem("token", jeton.data.token);
+            window.sessionStorage.setItem("token", jeton.data.token);
+            window.sessionStorage.setItem(
+              "key",
+              `${data.email}||${data.password}`
+            );
             window.location.reload(false);
           } else {
             this.props.invalid(jeton.data.msg);
@@ -28,11 +32,35 @@ class Login extends Component {
         })
         .catch((error) => {
           console.log(error.response);
-          this.props.invalid(error.response.data.msg || error.response.data.errors[0].msg)
+          this.props.invalid(
+            error.response.data.msg || error.response.data.errors[0].msg
+          );
         });
     } else {
       this.props.invalid("Password does not match");
     }
+  };
+  demo = () => {
+    const dummydata = { email: "johndoe@acme.com", password: "123456789" };
+    axios({
+      method: "post",
+      url: "http://localhost:5000/api/auth/",
+      headers: { "Content-Type": "application/json" },
+      data: dummydata,
+    })
+      .then((jeton) => {
+        console.log(jeton);
+        window.sessionStorage.setItem("token", jeton.data.token);
+        window.sessionStorage.setItem(
+          "key",
+          `${dummydata.email}||${dummydata.password}`
+        );
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error.response);
+        //if (error.response.status === 400) this.props.invalid("Invalid data");
+      });
   };
   render() {
     return (
@@ -99,7 +127,7 @@ class Login extends Component {
                 </button>
               </p>
               <p className="control">
-                <button className="button is-link">demo</button>
+                <button className="button is-link" onClick={this.demo}>demo</button>
               </p>
             </div>
           </Form>

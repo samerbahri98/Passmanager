@@ -13,14 +13,18 @@ class Login extends Component {
     })
       .then((jeton) => {
         console.log(jeton);
-        window.sessionStorage.setItem("token", jeton.data.token)
-        window.sessionStorage.setItem("key",`${data.email}||${data.password}`)
+        window.sessionStorage.setItem("token", jeton.data.token);
+        window.sessionStorage.setItem("key", `${data.email}||${data.password}`);
         window.location.reload(false);
       })
       .catch((error) => {
-        console.log(error.response)
+        console.log(error.response);
         //if (error.response.status === 400) this.props.invalid("Invalid data");
       });
+  };
+  demo = async () => {
+    const dummydata = { email: "johndoe@acme.com", password: "123456789" }
+    this.submit(dummydata)
   };
   render() {
     return (
@@ -66,7 +70,7 @@ class Login extends Component {
                 </button>
               </p>
               <p className="control">
-                <button className="button is-link">demo</button>
+                <button className="button is-link" onClick={this.demo}>demo</button>
               </p>
             </div>
           </Form>
