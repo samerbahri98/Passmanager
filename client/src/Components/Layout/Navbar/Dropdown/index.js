@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const Dropdown = (props) => {
+const Dropdown = () => {
+  const [user, setUsername] = useState("");
+  useEffect( () => {
+    axios({
+      url: "http://localhost:5000/api/auth/",
+      method: "get",
+      headers: {
+        "x-auth-token": window.sessionStorage.getItem("token"),
+      },
+    }).then(data => setUsername(data.data.user.name))
+  });
   return (
     <div id="navbarBasicExample" className="navbar-end">
       <div className="navbar-start">
@@ -10,10 +21,10 @@ const Dropdown = (props) => {
             <a className="navbar-link">
               <div className="avatar navbar-item">
                 <figure className="image is-24x24">
-                  <img src="./avatar.jpg" alt="" className="is-rounded" />
+                  <img src="https://i.imgur.com/I4Z1a03.png" alt="" className="is-rounded" />
                 </figure>
               </div>
-              {props.username}
+              {user}
               <br />
             </a>
             <div className="navbar-dropdown">

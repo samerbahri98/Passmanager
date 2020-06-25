@@ -12,14 +12,17 @@ class Cell extends Component {
     return (
       <div className="card">
         <div className="card-image logo-card">
-          <figure className="image is-64x64 is-centered logo-container">
-            <img
-              src={this.props.elem.logoUrl}
-              className="is-centered"
-              alt="Image"
-            />
-          </figure>
+          <center>
+            <figure className="image is-128x128 logo-container">
+              <img
+                src={this.props.elem.logoUrl}
+                className="logoIMG"
+                alt="Image"
+              />
+            </figure>
+          </center>
         </div>
+
         <div className="card-content">
           <div className="media">
             <div className="media-content">
@@ -55,7 +58,9 @@ class Cell extends Component {
                 </span>
               </div>
               <p className="title is-4">{this.props.elem.WebsiteName}</p>
-              <p className="subtitle is-6">{this.props.elem.Username||this.props.elem.Email}</p>
+              <p className="subtitle is-6">
+                {this.props.elem.Username || this.props.elem.Email}
+              </p>
             </div>
           </div>
         </div>

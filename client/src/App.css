@@ -37,7 +37,6 @@
   }
 }
 
-
 @media screen and (min-width: 769px) {
   .matrix {
     display: flex;
@@ -53,31 +52,38 @@
   }
 }
 
-@media screen and (min-width : 1000px)
-{
+@media screen and (min-width: 1000px) {
   .matrix {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 1em;
-    }
-
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1em;
+  }
 }
 
-.logo{
-
+.logo {
   width: 3em;
   height: 1em;
 }
 
 .logo-card {
-  display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  margin: none;
+  padding: none;
 
 }
 
-.logo-container{
-  padding-top: 2em;
+.logoIMG {
+  justify-content: center;
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 3em;
+}
+
+.logo-container {
+  justify-content: center;
+  text-align: center;
 }
 
 .options {
