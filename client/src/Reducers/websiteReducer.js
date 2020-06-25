@@ -9,16 +9,16 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_WEBSITES:
       let load = action.payload;
-      let salt = "samer"
+      let key= window.sessionStorage.getItem("key")
       if (load) {
         load.forEach((elem) => {
-          elem.WebsiteName=encryption.decrypt(elem.WebsiteName,salt)
-          elem.WebsiteUrl=encryption.decrypt(elem.WebsiteUrl,salt)
-          elem.Username=encryption.decrypt(elem.Username,salt)
-          elem.Email=encryption.decrypt(elem.Email,salt)
-          elem.logoUrl=encryption.decrypt(elem.logoUrl,salt)
-          elem.Notes=encryption.decrypt(elem.Notes,salt)
-          elem.Password=encryption.decrypt(elem.Password,salt)
+          elem.WebsiteName=encryption.decrypt(elem.WebsiteName,key)
+          elem.WebsiteUrl=encryption.decrypt(elem.WebsiteUrl,key)
+          elem.Username=encryption.decrypt(elem.Username,key)
+          elem.Email=encryption.decrypt(elem.Email,key)
+          elem.logoUrl=encryption.decrypt(elem.logoUrl,key)
+          elem.Notes=encryption.decrypt(elem.Notes,key)
+          elem.Password=encryption.decrypt(elem.Password,key)
         });
       }
       return { ...state, websitesList: load };

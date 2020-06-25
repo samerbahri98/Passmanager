@@ -55,7 +55,7 @@ class Cell extends Component {
                 </span>
               </div>
               <p className="title is-4">{this.props.elem.WebsiteName}</p>
-              <p className="subtitle is-6">{this.props.elem.Username}</p>
+              <p className="subtitle is-6">{this.props.elem.Username||this.props.elem.Email}</p>
             </div>
           </div>
         </div>

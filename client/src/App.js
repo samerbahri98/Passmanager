@@ -26,7 +26,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <div className="App">
-          {localStorage.getItem("token") === null ? (
+          {window.sessionStorage.getItem("token") === null ? (
             <Landing />
           ) : (
             <Fragment>

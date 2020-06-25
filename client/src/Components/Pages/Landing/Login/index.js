@@ -13,11 +13,13 @@ class Login extends Component {
     })
       .then((jeton) => {
         console.log(jeton);
-        localStorage.setItem("token", jeton.data.token);
+        window.sessionStorage.setItem("token", jeton.data.token)
+        window.sessionStorage.setItem("key",`${data.email}||${data.password}`)
         window.location.reload(false);
       })
       .catch((error) => {
-        if (error.response.status === 400) this.props.invalid("Invalid data");
+        console.log(error.response)
+        //if (error.response.status === 400) this.props.invalid("Invalid data");
       });
   };
   render() {

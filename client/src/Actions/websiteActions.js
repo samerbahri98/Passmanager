@@ -7,7 +7,9 @@ import {
 import encryption from "../lock/encryption";
 import axios from "axios";
 
-const token = localStorage.getItem("token");
+let token = window.sessionStorage.getItem("token");
+let key= window.sessionStorage.getItem("key")
+
 
 // @route   GET api/websites
 // @desc    Get all users websites
@@ -35,7 +37,7 @@ export const fetchWebsites = () => async (dispatch) => {
 export const addWebsite = (websiteData) => async (dispatch) => {
   Object.keys(websiteData).forEach(
     (item) =>
-      (websiteData[item] = encryption.encrypt(websiteData[item], "samer"))
+      (websiteData[item] = encryption.encrypt(websiteData[item], key))
   );
   axios({
     method: "post",
@@ -50,9 +52,9 @@ export const addWebsite = (websiteData) => async (dispatch) => {
       type: ADD_WEBSITE,
       payload: website.data.website,
     });
-    let code = encryption.encrypt(website.data.website.Password, "samer");
+    let code = encryption.encrypt(website.data.website.Password, key);
     console.log(code);
-    let recode = encryption.decrypt(code, "samer");
+    let recode = encryption.decrypt(code, key);
     console.log(recode);
     console.log(typeof recode);
   });
@@ -82,7 +84,7 @@ export const deleteWebsite = (id) => async (dispatch) => {
 export const modifyWebsite = (id, websiteData) => async (dispatch) => {
   Object.keys(websiteData).forEach(
     (item) =>
-      (websiteData[item] = encryption.encrypt(websiteData[item], "samer"))
+      (websiteData[item] = encryption.encrypt(websiteData[item], key))
   );
   console.log({ id: id, data: websiteData });
   axios({

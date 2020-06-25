@@ -18,7 +18,7 @@ class Row extends Component {
           </div>
         </th>
         <td> {this.props.item.WebsiteName}</td>
-        <td>{this.props.item.Username}</td>
+        <td>{this.props.item.Username||this.props.item.Email}</td>
         <td></td>
         <td></td>
         <td>

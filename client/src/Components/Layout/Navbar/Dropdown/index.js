@@ -46,7 +46,7 @@ const Dropdown = (props) => {
               <a
                 className="navbar-item"
                 onClick={() => {
-                  localStorage.clear();
+                  window.sessionStorage.clear();
                   window.location.reload(false);
                 }}
               >
