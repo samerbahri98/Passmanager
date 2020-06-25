@@ -22,15 +22,24 @@ class Matrix extends Component {
             {typeof this.props.list === "undefined" ? (
               <Fragment />
             ) : (
-              this.props.list.map((elem, index) => (
-                <Cell
-                  key={index}
-                  elem={elem}
-                  notify={this.notify}
-                  modify={this.modify}
-                  delete={this.delete}
-                />
-              ))
+              this.props.list
+                .filter(
+                  (elem) =>
+                    elem.WebsiteName.indexOf(this.props.searchValue) >= 0 ||
+                    elem.WebsiteUrl.indexOf(this.props.searchValue) >= 0 ||
+                    elem.Username.indexOf(this.props.searchValue) >= 0 ||
+                    elem.Email.indexOf(this.props.searchValue) >= 0 ||
+                    elem.Notes.indexOf(this.props.searchValue) >= 0
+                )
+                .map((elem, index) => (
+                  <Cell
+                    key={index}
+                    elem={elem}
+                    notify={this.notify}
+                    modify={this.modify}
+                    delete={this.delete}
+                  />
+                ))
             )}
           </div>
         </div>
