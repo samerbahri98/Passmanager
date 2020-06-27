@@ -13,7 +13,7 @@ import Home from "./Components/Pages/Home";
 import About from "./Components/Pages/About";
 import Help from "./Components/Pages/Help";
 import Landing from "./Components/Pages/Landing";
-import Logout from "./Components/Pages/Logout"
+import Notfound from "./Components/Pages/404"
 
 //redux
 import { Provider } from "react-redux";
@@ -27,7 +27,10 @@ const App = () => {
       <Router>
         <div className="App">
           {window.sessionStorage.getItem("token") === null ? (
-            <Landing />
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route component={Notfound} />
+            </Switch>
           ) : (
             <Fragment>
               <Navbar username={username} />
@@ -36,7 +39,7 @@ const App = () => {
                   <Route exact path="/" component={Home} />
                   <Route exact path="/about" component={About} />
                   <Route exact path="/help" component={Help} />
-                  {/* <Route exact path="/logout" component={Logout} /> */}
+                  <Route component={Notfound} />
                 </Switch>
               </div>
               <Footer />
